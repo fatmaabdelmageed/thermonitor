@@ -8,8 +8,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-
+import android.nfc.Tag;
 
 import com.google.firebase.database.DataSnapshot;
 
@@ -38,8 +37,8 @@ import kotlin.jvm.internal.PropertyReference0Impl;
 
 
 public class DeviceDetailActivity extends AppCompatActivity {
-    TextView temp= findViewById(R.id.temperature);
 
+    private static final String TAG = "DeviceDetailActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,24 +47,27 @@ public class DeviceDetailActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("temp");
 
-        myRef.setValue("temperature");
+       // myRef.setValue("temp");
 
 // Read from the database
+        TextView temp= findViewById(R.id.temperature);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                Long temperature=dataSnapshot.getValue(Long.class);
-                String value = dataSnapshot.getValue(String.class);
-               // Log.d(TAG, "Value is: " + value);
-                temp.setText("The temperature is" + temperature);
+                //Long temperature=dataSnapshot.getValue(Long.class);
+               // Long value = dataSnapshot.getValue(Long.class);
+                String value = dataSnapshot.getValue().toString();
+                temp.setText( value);
+               Log.d(TAG, "Value is: " + value);
+
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
-               // Log.w(TAG, "Failed to read value.", error.toException());
+                Log.w(TAG, "Failed to read value.", error.toException());
                 temp.setText(error.getMessage());
             }
         });
