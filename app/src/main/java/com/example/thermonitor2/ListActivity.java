@@ -165,26 +165,15 @@ public class ListActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Scanning WiFi ...", Toast.LENGTH_SHORT).show();
 
-
     }
-
-
 
     BroadcastReceiver wifiReceiver = new BroadcastReceiver() {
 
-
-
         @Override
-
-
 
         public void onReceive(Context context, Intent intent) {
 
-
-
             results = wifiManager.getScanResults();
-
-
 
             unregisterReceiver(this);
 
@@ -193,7 +182,6 @@ public class ListActivity extends AppCompatActivity {
                 if(scanResult.SSID.equals("MyESP8266AP")){
 
                 arrayList.add(scanResult.SSID + " - " + scanResult.capabilities);
-
 
                 whatever.notifyDataSetChanged();
 
