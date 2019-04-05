@@ -40,31 +40,31 @@ public class DeviceDetailActivity extends AppCompatActivity {
 
     private static final String TAG = "DeviceDetailActivity";
     TextView temp;
-    String datapath="temperature";
+    String s;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_detail);
-        Bundle bundle = getIntent().getExtras();
-        if(bundle.getString("ESPMAC")!=null){
-           datapath= bundle.getString("ESPMAC");
-          }
-    final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference(datapath);
+//        Bundle bundle = getIntent().getExtras();
+//        if(bundle.getString("ESP")!=null){
+//           s= bundle.getString("ESP");
+//          }
+        s=ListActivity.getName();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(s);
 
-       // myRef.setValue("temp");
 
 // Read from the database
        temp = findViewById(R.id.temperature);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                //Long temperature=dataSnapshot.getValue(Long.class);
-                String value = dataSnapshot.getValue().toString();
+                Long temperature=dataSnapshot.getValue(Long.class);
+               // String value = dataSnapshot.getValue().toString();
+                String value = ""+temperature;
                 temp.setText( "Temperature is: " +value);
-               Log.d(TAG, "Value is: " + value);
+                Log.d(TAG, "Value is: " + value);
 
             }
 

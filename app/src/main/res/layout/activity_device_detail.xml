@@ -8,16 +8,18 @@
 
     <TextView
         android:id="@+id/temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
 
-        android:layout_marginTop="331dp"
-        android:layout_marginEnd="158dp"
-        android:layout_marginRight="158dp"
-        android:hint="temperature" />
+        android:layout_marginTop="240dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginRight="54dp"
+        android:hint="temperature"
+        android:textSize="30dp" />
 
 
 </RelativeLayout>

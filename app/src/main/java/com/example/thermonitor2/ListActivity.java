@@ -85,6 +85,11 @@ public class ListActivity extends AppCompatActivity {
 
     CustomListAdapter whatever;
 
+    public static String getName() {
+        return name;
+    }
+
+    public static String name;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,24 +124,7 @@ public class ListActivity extends AppCompatActivity {
 
         wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-        simpleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedESP =String.valueOf(parent.getItemAtPosition(position));
-
-                String mac= onlyMacString(selectedESP);
-
-                Intent intent = new Intent(ListActivity.this, DeviceDetailActivity.class);
-
-                intent.putExtra("ESPMAC", mac);
-
-                startActivity(intent);
-
-            }
-
-        });
 
         if (!wifiManager.isWifiEnabled()) {
 
@@ -146,13 +134,58 @@ public class ListActivity extends AppCompatActivity {
 
         }
         scanWifi();
+        simpleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String chosenESP =String.valueOf(parent.getItemAtPosition(position));
+
+                String mac= MacAddress(chosenESP);
+name=mac;
+                Intent intent;
+                intent = new Intent();
+                intent.putExtra("ESP", mac);
+
+                intent= new Intent(ListActivity.this, DeviceDetailActivity.class);
+                startActivity(intent);
+
+            }
+
+        });
     }
 
-    private String onlyMacString(String selectedESP) {
-        String s="";
+    private String MacAddress(String selectedESP) {
+        String macAddress="";
+        for(int index=0; index<selectedESP.length(); index++) {
+//            if(selectedESP.substring(index,index+3).equalsIgnoreCase("Mac:")){
+//                index=index+4;
+//               int temp=index;
+//                for(index=index;index<selectedESP.length(); index++) {
+//                    if (index == temp + 1)
+//                        macAddress = macAddress + (char) ((int) selectedESP.charAt(index) - 2);
+//                    else {
+//                        macAddress = macAddress + selectedESP.charAt(index);
+//                    }
+//                }
+            if (selectedESP.substring(index,index+3) == "Mac:") {
+                            index=index+4;
+                            int temp = index;
+                            for (index = index; index < selectedESP.length(); index++) {
+                                if (index == temp + 1) {
+                                    macAddress = macAddress + (char) ((int) selectedESP.charAt(index) - 2);
+                                } else {
+                                    macAddress = macAddress + selectedESP.charAt(index);
+                                }
 
+                            }
+                           // System.out.print("Mac Address :" + macAddress);
+                            //break;
+                        }
 
-        return s;
+                    }
+
+        return macAddress;
     }
 
     private void scanWifi() {
@@ -181,8 +214,8 @@ public class ListActivity extends AppCompatActivity {
 
                 if(scanResult.SSID.equals("MyESP8266AP")){
 
-                arrayList.add(scanResult.SSID + " - " + scanResult.capabilities);
-
+                arrayList.add("SSID:" + scanResult.SSID + " - " + scanResult.capabilities + "Mac:" + scanResult.BSSID);
+               // name = scanResult.BSSID;
                 whatever.notifyDataSetChanged();
 
                 }
@@ -196,6 +229,7 @@ public class ListActivity extends AppCompatActivity {
 
 
     };
+
 
 
 
