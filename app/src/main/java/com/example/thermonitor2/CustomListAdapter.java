@@ -50,11 +50,11 @@ public class CustomListAdapter extends ArrayAdapter {
 
         TextView nameTextField = (TextView) rowView.findViewById(R.id.textView);
 
-        //ImageView imageView = (ImageView) rowView.findViewById(R.id.imageView);
+        ImageView imageView = (ImageView) rowView.findViewById(R.id.imageView);
 
         nameTextField.setText(nameArray.get(position));
 
-       // imageView.setImageResource(imageIDarray[0]);
+       imageView.setImageResource(imageIDarray[0]);
 
         return rowView;
 

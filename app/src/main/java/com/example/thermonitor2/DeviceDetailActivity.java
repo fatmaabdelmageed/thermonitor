@@ -45,10 +45,10 @@ public class DeviceDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_detail);
-Bundle bundle = getIntent().getExtras();
-if(bundle.getString("ESPMAC")!=null){
-    datapath= bundle.getString("ESPMAC");
-}
+        Bundle bundle = getIntent().getExtras();
+        if(bundle.getString("ESPMAC")!=null){
+           datapath= bundle.getString("ESPMAC");
+          }
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(datapath);
 
