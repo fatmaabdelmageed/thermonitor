@@ -39,27 +39,31 @@ import kotlin.jvm.internal.PropertyReference0Impl;
 public class DeviceDetailActivity extends AppCompatActivity {
 
     private static final String TAG = "DeviceDetailActivity";
+    TextView temp;
+    String datapath="temperature";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_detail);
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("temp");
+Bundle bundle = getIntent().getExtras();
+if(bundle.getString("ESPMAC")!=null){
+    datapath= bundle.getString("ESPMAC");
+}
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(datapath);
 
        // myRef.setValue("temp");
 
 // Read from the database
-        TextView temp= findViewById(R.id.temperature);
+       temp = findViewById(R.id.temperature);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 //Long temperature=dataSnapshot.getValue(Long.class);
-               // Long value = dataSnapshot.getValue(Long.class);
                 String value = dataSnapshot.getValue().toString();
-                temp.setText( value);
+                temp.setText( "Temperature is: " +value);
                Log.d(TAG, "Value is: " + value);
 
             }

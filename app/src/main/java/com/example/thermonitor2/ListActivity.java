@@ -124,8 +124,13 @@ public class ListActivity extends AppCompatActivity {
             @Override
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedESP =String.valueOf(parent.getItemAtPosition(position));
+
+                String mac= onlyMacString(selectedESP);
 
                 Intent intent = new Intent(ListActivity.this, DeviceDetailActivity.class);
+
+                intent.putExtra("ESPMAC", mac);
 
                 startActivity(intent);
 
@@ -140,24 +145,19 @@ public class ListActivity extends AppCompatActivity {
             wifiManager.setWifiEnabled(true);
 
         }
-
-
-
         scanWifi();
-
-
-
     }
 
+    private String onlyMacString(String selectedESP) {
+        String s="";
 
+
+        return s;
+    }
 
     private void scanWifi() {
 
-
-
         arrayList.clear();
-
-
 
         registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 
