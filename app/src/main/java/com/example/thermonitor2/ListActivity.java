@@ -142,10 +142,10 @@ public class ListActivity extends AppCompatActivity {
                 String chosenESP =String.valueOf(parent.getItemAtPosition(position));
 
                 String mac= MacAddress(chosenESP);
-name=mac;
+                name="2e:3a:e8:4f:15:57";
                 Intent intent;
-                intent = new Intent();
-                intent.putExtra("ESP", mac);
+               // intent = new Intent();
+               // intent.putExtra("ESP", mac);
 
                 intent= new Intent(ListActivity.this, DeviceDetailActivity.class);
                 startActivity(intent);
@@ -157,7 +157,7 @@ name=mac;
 
     private String MacAddress(String selectedESP) {
         String macAddress="";
-        for(int index=0; index<selectedESP.length(); index++) {
+     //   for(int index=0; index<selectedESP.length(); index++) {
 //            if(selectedESP.substring(index,index+3).equalsIgnoreCase("Mac:")){
 //                index=index+4;
 //               int temp=index;
@@ -168,22 +168,22 @@ name=mac;
 //                        macAddress = macAddress + selectedESP.charAt(index);
 //                    }
 //                }
-            if (selectedESP.substring(index,index+3) == "Mac:") {
-                            index=index+4;
-                            int temp = index;
-                            for (index = index; index < selectedESP.length(); index++) {
-                                if (index == temp + 1) {
-                                    macAddress = macAddress + (char) ((int) selectedESP.charAt(index) - 2);
-                                } else {
-                                    macAddress = macAddress + selectedESP.charAt(index);
-                                }
-
-                            }
-                           // System.out.print("Mac Address :" + macAddress);
-                            //break;
-                        }
-
-                    }
+//            if (selectedESP.substring(index,index+3) == "Mac:") {
+//                            index=index+3;
+//                            int temp = index;
+//                            for (index = index; index < selectedESP.length(); index++) {
+//                                if (index == temp + 1) {
+//                                    macAddress = macAddress + (char) ((int) selectedESP.charAt(index) - 2);
+//                                } else {
+//                                    macAddress = macAddress + selectedESP.charAt(index);
+//                                }
+//
+//                            }
+//                           // System.out.print("Mac Address :" + macAddress);
+//                              break;
+//                        }
+//
+//                    }
 
         return macAddress;
     }

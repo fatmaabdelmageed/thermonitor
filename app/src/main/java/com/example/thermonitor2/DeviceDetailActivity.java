@@ -51,9 +51,10 @@ public class DeviceDetailActivity extends AppCompatActivity {
 //           s= bundle.getString("ESP");
 //          }
         s=ListActivity.getName();
+        //s="Temperature";
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(s);
-
+//myRef.setValue("hello,world);
 
 // Read from the database
        temp = findViewById(R.id.temperature);
